@@ -14,16 +14,22 @@ class Main extends React.Component {
 
     componentDidMount(){
         console.log(process.env);
-        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=hobbit`)
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=hobbit`)
             .then(response => response.json())
-            .then(data => this.setState({movies: data.Search, loading: false}));            
+            .then(data => this.setState({movies: data.Search, loading: false}))
+            .catch((error) => {
+                console.error(error);
+            });            
     }
 
     searching = (inputValue, radioValue) => {
         if(inputValue) {
-            fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${inputValue}${radioValue !== 'all' ? `&type=${radioValue}` : ''}`)
+            fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${inputValue}${radioValue !== 'all' ? `&type=${radioValue}` : ''}`)
             .then(response => response.json())
-            .then(data => this.setState({movies: data.Search, loading: false}));
+            .then(data => this.setState({movies: data.Search, loading: false}))
+            .catch((error) => {
+                console.error(error);
+            });
         }
     }
 
